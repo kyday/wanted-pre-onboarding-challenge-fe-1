@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
+import { RecoilRoot } from "recoil";
 import App from "./App";
 import { GlobalStyles } from "./styles/GlobalStyles";
 
@@ -9,9 +10,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <GlobalStyles />
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <RecoilRoot>
+      <GlobalStyles />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </RecoilRoot>
   </React.StrictMode>
 );

@@ -1,34 +1,60 @@
+import Button from "@/components/Button/Button";
 import Input from "@/components/Input/Input";
 import useForm from "@/hooks/useForm";
+import { StyledFormProps } from "@/types/styled";
 import styled from "styled-components";
 
 function Auth() {
-  const { values, handleChange } = useForm();
-  console.log("partent Render");
+  const { values, onChange, onSubmit, isValidation, onIsSignIn, isSignIn } =
+    useForm();
+
   return (
     <Section>
-      <Form>
-        <Title>SignIn</Title>
-        <SubTitle>Username</SubTitle>
+      <Form onSubmit={onSubmit} isSignIn>
+        <Title>{isSignIn ? "SignIn" : "SignUp"}</Title>
+
+        {!isSignIn && (
+          <>
+            <SubTitle>UserName</SubTitle>
+
+            <Input
+              values={values.userName}
+              onChange={onChange}
+              placeholder="UserName"
+              type="text"
+              name="userName"
+            />
+          </>
+        )}
+
+        <SubTitle>Email</SubTitle>
 
         <Input
           values={values.email}
-          onChange={handleChange}
-          placeholder='Email'
-          type='email'
-          name='email'
+          onChange={onChange}
+          placeholder="Email"
+          type="email"
+          name="email"
         />
 
         <SubTitle>Password</SubTitle>
         <Input
           values={values.password}
-          onChange={handleChange}
-          placeholder='password'
-          type='password'
-          name='password'
+          onChange={onChange}
+          placeholder="password"
+          type="password"
+          name="password"
         />
 
-        <Button>Sign In</Button>
+        <Button validation={isValidation} disabled={!isValidation}>
+          {isSignIn ? "Sign In" : "Sign Up"}
+        </Button>
+
+        <Info onClick={onIsSignIn}>
+          {isSignIn
+            ? "Don't have an account? Sign Up"
+            : "Already have an account? Sign In"}
+        </Info>
       </Form>
     </Section>
   );
@@ -41,8 +67,8 @@ const Section = styled.section`
   background-color: #000;
 `;
 
-const Form = styled.form`
-  height: 520px;
+const Form = styled.form<StyledFormProps>`
+  height: ${(props) => `${props.isSignIn ? 520 : 650}`};
   width: 400px;
   background-color: rgba(255, 255, 255, 0.13);
   position: absolute;
@@ -71,14 +97,11 @@ const SubTitle = styled.h3`
   margin-bottom: 1rem;
 `;
 
-const Button = styled.button`
-  margin-top: 50px;
-  width: 100%;
-  background-color: #ffffff;
-  color: #080710;
-  padding: 15px 0;
-  font-size: 18px;
-  font-weight: 600;
-  border-radius: 5px;
+const Info = styled.h4`
+  margin-top: 1rem;
+  text-align: center;
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 15px;
   cursor: pointer;
 `;

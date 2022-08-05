@@ -14,7 +14,6 @@ export const GlobalStyles = createGlobalStyle`
     height: 100%;
   }
   body {
-    height: 100%;
     color: black;
   }
   a {

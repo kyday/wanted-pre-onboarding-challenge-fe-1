@@ -25,12 +25,7 @@ const Input = (props: InputType) => {
 
 export default React.memo(Input);
 
-const SubTitle = styled.h3`
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-`;
-
-const InputStyled = styled.input`
+export const InputStyled = styled.input`
   display: block;
   height: 50px;
   width: 100%;
