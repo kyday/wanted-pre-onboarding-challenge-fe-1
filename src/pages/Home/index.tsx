@@ -1,28 +1,62 @@
+import Button from "@/components/Button/Button";
 import { InputStyled } from "@/components/Input/Input";
+import ModalFrame from "@/components/Modal/Modal";
+import useTodos from "@/hooks/useTodos";
 import { todosSelector } from "@/recoil/selector/todoList";
-import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import TodoList from "./components/TodoList";
 import TodoTitle from "./components/TodoTitle";
 
 function Home() {
-  const [value, setValue] = useState("");
-
   const todoList = useRecoilValue(todosSelector);
-
-  // // console.log(todoList);
+  const { values, onChange, onClick, visible, onClickToggleModal } = useTodos();
 
   return (
     <Layout>
-      <TodoTitle />
+      <TodoTopWapper>
+        <TodoTitle />
+        <StyledButton onClick={onClickToggleModal} validation={true}>
+          등록
+        </StyledButton>
+      </TodoTopWapper>
 
-      <StyledExtendedComponent
-        value={value}
-        type='text'
-        placeholder={"새로운 일정을 입력해주세요."}
-        name={"add"}
-        onChange={(e) => setValue(e.target.value)}
-      />
+      {visible && (
+        <ModalFrame
+          onClickToggleModal={onClickToggleModal}
+          isOpenModal={visible}
+        >
+          <h1>일정 등록</h1>
+
+          <StyledExtendedComponent
+            value={values.title}
+            type='text'
+            placeholder={"제목을 입력해주세요."}
+            name='title'
+            onChange={onChange}
+          />
+
+          <StyledExtendedComponent
+            value={values.content}
+            type='text'
+            placeholder={"새로운 일정을 입력해주세요."}
+            name='content'
+            onChange={onChange}
+          />
+
+          <StyledButton onClick={onClick} validation={true}>
+            추가
+          </StyledButton>
+        </ModalFrame>
+      )}
+
+      <TodoListWrapper>
+        <StyledUl>
+          {todoList.data?.map((item: any) => {
+            return <TodoList key={item.id} item={item} />;
+          })}
+        </StyledUl>
+      </TodoListWrapper>
     </Layout>
   );
 }
@@ -31,7 +65,12 @@ export default Home;
 
 const Layout = styled.section`
   background-color: #000;
-  height: 100vh;
+`;
+
+const TodoTopWapper = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 `;
 
 export const CardWrapper = styled.div`
@@ -45,10 +84,27 @@ export const CardWrapper = styled.div`
   border-radius: 5px;
 `;
 
+const StyledButton = styled(Button)`
+  width: 5rem;
+  margin: 0;
+`;
+
 const StyledExtendedComponent = styled(InputStyled)`
-  margin: 0 auto;
+  margin-bottom: 6rem;
   width: 80%;
   border-bottom: 1px solid #000;
   border-radius: 0;
-  color: #fff;
+  color: #000;
+`;
+
+const TodoListWrapper = styled.div`
+  margin-left: 2rem;
+  margin-right: 2rem;
+`;
+
+const StyledUl = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 3rem;
 `;

@@ -4,8 +4,7 @@ import { selector } from "recoil";
 export const todosSelector = selector({
   key: "todosSelector",
   get: async () => {
-    const data = await getTodos();
-    console.log(data);
+    const { data } = await getTodos();
     return data;
   },
 });

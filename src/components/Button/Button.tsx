@@ -4,8 +4,8 @@ import styled from "styled-components";
 
 type ButtonType = {
   children: React.ReactNode;
-  validation: boolean;
-  disabled: boolean;
+  validation?: boolean;
+  disabled?: boolean;
 
   onClick?: () => void;
 };

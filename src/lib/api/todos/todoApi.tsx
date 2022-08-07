@@ -8,6 +8,13 @@ const getTodoById = () => {
   return axiosClient.get("/todos/${id}");
 };
 
+export const createTodo = (title: string, content: string) => {
+  return axiosClient.post("/todos", {
+    title: title,
+    content: content,
+  });
+};
+
 // export default function useTodoApi() {
 //   const getTodos = () => {
 //     return axiosClient.get("/todos");
@@ -16,21 +23,6 @@ const getTodoById = () => {
 //   const getTodoById = () => {
 //     return axiosClient.get("/todos/${id}");
 //   };
-
-//   // function createTodo(title: string, content: string, userToken: string) {
-//   //   return axios.post(
-//   //     "http://localhost:8080/todos",
-//   //     {
-//   //       title: title,
-//   //       content: content,
-//   //     },
-//   //     {
-//   //       headers: {
-//   //         Authorization: `Bearer ${userToken}`,
-//   //       },
-//   //     }
-//   //   );
-//   // }
 
 //   // function updateTodo(
 //   //   newTitle: string,

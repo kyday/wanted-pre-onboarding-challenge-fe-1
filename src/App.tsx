@@ -15,11 +15,12 @@ function App() {
   return (
     <Routes>
       <Route
-        path="/"
-        element={token ? <Home /> : <Navigate replace to="/auth" />}
+        path='/'
+        element={token ? <Home /> : <Navigate replace to='/auth' />}
       />
-      <Route path="/auth" element={<Auth />} />
-      <Route path="/*" element={<h2>404: not found</h2>} />
+      <Route path='/auth' element={<Auth />} />
+      <Route path='/todos/:id' element={<Home />} />
+      <Route path='/*' element={<h2>404: not found</h2>} />
     </Routes>
   );
 }
